@@ -3,22 +3,27 @@ import axios from "axios"
 import { Route, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import CharacterCard from "./CharacterCard"
+import Search from "./SearchForm"
 
 export default function CharacterList(props) {
   // console.log('list props', props)
   const [characters, setCharacters] = useState([])
+  const [filteredCharacter, updateCharacter] = useState([])
+
+  const search = characters => {
+    updateCharacter(characters)
+  };
 
   useEffect(() => {
-    axios.get('https://rickandmortyapi.com/api/character/')
-      .then(response => {
-        // console.log('api', response.data)
-        setCharacters(response.data.results) //info holds page/count/next
-      }).catch(error => {
-        console.log('err', error)
-      })
+    axios.get("https://rickandmortyapi.com/api/character/")
+    .then(response => {
+      console.log(response.data.results);
+      setCharacters(response.data.results);
+      updateCharacter(response.data.results);
+    })
   }, []);
 
-  // console.log('charcters', characters)
+  console.log('characters', characters)
 
   // DESIGN
   const ListContainer = styled.div`
@@ -35,15 +40,17 @@ export default function CharacterList(props) {
     width: 50%;
   `;
 
+
+
   return (
     <section className="character-list">
       <ListContainer>
       <CharacterNamesContainer>
-          {characters.map(character => {
+      <Search search={search} characters={characters} />
+          {filteredCharacter.map(character => {
             return <div key={character.id}>
                       <Link to={`/characters/${character.id}`}><h3>{character.name}</h3></Link>
                    </div>
-                   
           })}
         </CharacterNamesContainer>
         <CharacterInfo>
