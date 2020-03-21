@@ -1,36 +1,55 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Route, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom'
+import styled from 'styled-components'
 import CharacterCard from "./CharacterCard"
 
-export default function CharacterList() {
-  // TODO: Add useState to track data from useEffect
+export default function CharacterList(props) {
+  // console.log('list props', props)
   const [characters, setCharacters] = useState([])
 
   useEffect(() => {
-    // TODO: Add API Request here - must run in `useEffect`
-    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
     axios.get('https://rickandmortyapi.com/api/character/')
       .then(response => {
-        console.log('api', response.data)
+        // console.log('api', response.data)
         setCharacters(response.data.results) //info holds page/count/next
       }).catch(error => {
         console.log('err', error)
       })
   }, []);
 
-  console.log('charcters', characters)
+  // console.log('charcters', characters)
+
+  // DESIGN
+  const ListContainer = styled.div`
+    display: flex;
+  `;
+
+  const CharacterInfo = styled.div`
+    width: 50%;
+  `;
+
+  const CharacterNamesContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  `;
 
   return (
     <section className="character-list">
-      <div>
-          <Route path='/characters/:id' component={(props) => <CharacterCard {...props} info={characters} />} />
+      <ListContainer>
+      <CharacterNamesContainer>
           {characters.map(character => {
-            return <div>
-                    <Link to={`/characters/${character.id}`}><p>{character.name}</p></Link>
+            return <div key={character.id}>
+                      <Link to={`/characters/${character.id}`}><p>{character.name}</p></Link>
                    </div>
+                   
           })}
-      </div>
+        </CharacterNamesContainer>
+        <CharacterInfo>
+          <Route path='/characters/:id' component={(props) => <CharacterCard {...props} info={characters} />} />
+        </CharacterInfo>        
+      </ListContainer>
     </section>
   );
 }

@@ -22,12 +22,12 @@ export default function CharacterCard(props) {
 
   },[props]);
 
-  console.log('showcharacter', showCharacter)
+  // console.log('showcharacter', showCharacter)
   
   return (
     <div>
       {showCharacter.map(character => {
-        return <div>
+        return <div key={character.id}>
           <h1>{character.name}</h1>
           <p>
             <img src={character.image} alt={character.name} /><br />
