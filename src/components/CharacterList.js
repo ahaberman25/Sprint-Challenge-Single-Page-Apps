@@ -41,7 +41,7 @@ export default function CharacterList(props) {
       <CharacterNamesContainer>
           {characters.map(character => {
             return <div key={character.id}>
-                      <Link to={`/characters/${character.id}`}><p>{character.name}</p></Link>
+                      <Link to={`/characters/${character.id}`}><h3>{character.name}</h3></Link>
                    </div>
                    
           })}

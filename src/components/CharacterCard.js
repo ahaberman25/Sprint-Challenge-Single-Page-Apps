@@ -31,10 +31,10 @@ export default function CharacterCard(props) {
           <h1>{character.name}</h1>
           <p>
             <img src={character.image} alt={character.name} /><br />
-            {character.status} <br />
-            {character.species} <br />
-            {character.gender} <br />
-            {character.origin.name} 
+            <b>Status:</b> {character.status} <br />
+            <b>Species:</b> {character.species} <br />
+            <b>Gender:</b> {character.gender} <br />
+            <b>Origin:</b> {character.origin.name} 
           </p>
         </div>
       })}      
