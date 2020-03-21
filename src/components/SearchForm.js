@@ -1,7 +1,5 @@
 import React, {useState} from "react";
 
-
-
 export default function SearchForm(props) {
   const [results, setResults] = useState();
 
@@ -12,24 +10,18 @@ export default function SearchForm(props) {
   const submitHandler = e => {
     e.preventDefault();
 
-    const charSearch = props.characters.filter(char => {
-      return char.name.toLowerCase().indexOf(results.toLowerCase()) !== -1;
+    const characterSearch = props.characters.filter(character => {
+      return character.name.toLowerCase().indexOf(results.toLowerCase()) !== -1;
     });
-    props.search(charSearch);
-    console.log(charSearch);
+    props.search(characterSearch);
+    console.log(characterSearch);
   };
 
 
   return (
     <section className="search-form">
       <form onSubmit={submitHandler}>
-        <input
-          onChange={handleChanges}
-          type="text"
-          name="character"
-          placeholder="Search"
-        >
-        </input>
+        <input onChange={handleChanges} type="text" name="character" placeholder="Search" />
       </form>
     </section>
   );
