@@ -8,13 +8,14 @@ export default function SearchForm(props) {
   };
 
   const submitHandler = e => {
-    e.preventDefault();
-
+    e.preventDefault(); 
+ 
     const characterSearch = props.characters.filter(character => {
       return character.name.toLowerCase().indexOf(results.toLowerCase()) !== -1;
     });
     props.search(characterSearch);
     console.log(characterSearch);
+    
   };
 
 
